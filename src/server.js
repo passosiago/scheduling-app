@@ -12,7 +12,7 @@ class App {
         this.routes()
     }
 
-    midlewares () {
+    middlewares () {
         this.express.use(express.urlencoded({ extended: false }))
     }
 
@@ -27,7 +27,7 @@ class App {
     }
 
     routes () {
-
+        this.express.use(require('./routes'))
     }
 }
 
