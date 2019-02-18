@@ -22,11 +22,11 @@
 //   }
 // }
 module.exports = {
-    dialect: 'mysql',
+    dialect: 'postgres',
     host: '127.0.0.1',
-    username: 'root',
-    password: 'root',
-    database: 'gonodemodule2',
+    username: 'docker',
+    password: 'docker',
+    database: 'scheduling_app',
     operatorAliases: false,
     define: {
         timestamps: true,
