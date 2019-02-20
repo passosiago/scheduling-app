@@ -1,0 +1,41 @@
+version: "3.3"
+
+services:
+  db:
+    image: kartoza/postgis:10.0-2.4
+    volumes:
+      - "postgis-data:/var/lib/postgresql"
+    environment:
+      - POSTGRES_DB=scheduling_app
+      - POSTGRES_USER=docker
+      - POSTGRES_PASS=docker
+      - ALLOW_IP_RANGE=0.0.0.0/0
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+
+  app:
+    container_name: scheduling-app
+    command: npm run dev
+    build:
+      context: ../scheduling-app
+      args:
+        - HTTP_PROXY
+        - HTTPS_PROXY
+        - NO_PROXY
+    volumes:
+      - ../scheduling-app:/scheduling-app
+      - node-modules-scheduling-app:/scheduling-app/node_modules
+    links:
+      - db:db
+    expose:
+      - 80
+    ports:
+      - 3100:80
+      - 9229:9229
+    environment:
+      PORT: 80
+      HOST: 0.0.0.0
+volumes: 
+  node-modules-scheduling-app:
+  postgis-data:
