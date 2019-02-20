@@ -1,18 +1,21 @@
 version: "3.3"
 
 services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+        - 8080:80
+        
   db:
-    image: kartoza/postgis:10.0-2.4
-    volumes:
-      - "postgis-data:/var/lib/postgresql"
-    environment:
-      - POSTGRES_DB=scheduling_app
-      - POSTGRES_USER=docker
-      - POSTGRES_PASS=docker
-      - ALLOW_IP_RANGE=0.0.0.0/0
+    image: postgres:10
+    restart: always
     ports:
       - 5432:5432
-    restart: unless-stopped
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: scheduling_app
 
   app:
     container_name: scheduling-app
