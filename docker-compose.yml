@@ -2,11 +2,11 @@ version: "3.3"
 
 services:
   adminer:
-    image: adminer
+    image: dockette/adminer:full-php5
     restart: always
     ports:
-        - 8080:80
-        
+      - 8080:80
+
   db:
     image: postgres:10
     restart: always
@@ -16,7 +16,8 @@ services:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: scheduling_app
-
+    volumes:
+      - ../scheduling-app/offline-data/db:/var/lib/postgresql
   app:
     container_name: scheduling-app
     command: npm run dev
@@ -39,6 +40,6 @@ services:
     environment:
       PORT: 80
       HOST: 0.0.0.0
-volumes: 
-  node-modules-scheduling-app:
-  postgis-data:
+# volumes:
+#   node-modules-scheduling-app:
+#   postgis-data:
